@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Doctor</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .search-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        .search-container input {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-container button:hover {
+            background-color: #0056b3;
+        }
+        .doctors-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .doctors-list div {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .doctors-list div:last-child {
+            border-bottom: none;
+        }
+        .header-image {
+            width: 50%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Find a doctor at your own ease</h1>
+    <div class="search-container">
+        <!-- Attractive header image -->
+        <img src="OIP.jpg" alt="Doctor Image" class="header-image">
+
+        <!-- Search input and button -->
+        <input type="text" id="searchInput" placeholder="Search doctors by specialty">
+        <button onclick="searchDoctors()">Search</button>
+
+        <!-- Doctors list -->
+        <div class="doctors-list" id="doctorsList">
+            <!-- Doctor list will be populated here -->
+        </div>
+    </div>
+
+    <script>
+        // Sample data for doctors
+        const doctors = [
+            { name: "Dr. John Doe", specialty: "Cardiology" },
+            { name: "Dr. Jane Smith", specialty: "Dermatology" },
+            { name: "Dr. Emily Johnson", specialty: "Pediatrics" },
+            { name: "Dr. Michael Brown", specialty: "Orthopedics" },
+            { name: "Dr. Sarah Lee", specialty: "Neurology" }
+        ];
+
+        // Function to display doctors
+        function displayDoctors(filteredDoctors) {
+            const doctorsList = document.getElementById("doctorsList");
+            doctorsList.innerHTML = ""; // Clear existing list
+
+            filteredDoctors.forEach(doctor => {
+                const doctorDiv = document.createElement("div");
+                doctorDiv.textContent = `${doctor.name} - ${doctor.specialty}`;
+                doctorsList.appendChild(doctorDiv);
+            });
+        }
+
+        // Function to handle search
+        function searchDoctors() {
+            const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+            const filteredDoctors = doctors.filter(doctor => 
+                doctor.specialty.toLowerCase().includes(searchTerm)
+            );
+            displayDoctors(filteredDoctors);
+        }
+
+        // Display all doctors on page load
+        window.onload = () => displayDoctors(doctors);
+    </script>
+</body>
+</html>

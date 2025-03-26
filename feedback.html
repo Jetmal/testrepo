@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews Table</title>
+    <style>
+        /* Basic styling for the table */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reviews</h1>
+    <table id="reviewsTable">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Doctor Name</th>
+                <th>Doctor Speciality</th>
+                <th>Provide Review</th>
+                <th>Review Given</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Data for the table
+        const reviewsData = [
+            { sno: 1, name: "Dr. John Doe", speciality: "Cardiology", review: "Give Review", given: "" },
+            { sno: 2, name: "Dr. Jane Smith", speciality: "Dermatology", review: "Give Review", given: "" }
+        ];
+
+        // Function to populate the table
+        function populateTable() {
+            const tbody = document.querySelector("#reviewsTable tbody");
+            tbody.innerHTML = ""; // Clear existing rows
+
+            reviewsData.forEach((item) => {
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${item.sno}</td>
+                    <td>${item.name}</td>
+                    <td>${item.speciality}</td>
+                    <td><button onclick="provideReview(${item.sno})">${item.review}</button></td>
+                    <td>${item.given}</td>
+                `;
+
+                tbody.appendChild(row);
+            });
+        }
+
+        // Function to handle review button click
+        function provideReview(sno) {
+            const review = prompt(`Enter review for S.No. ${sno}:`);
+            if (review) {
+                const index = reviewsData.findIndex(item => item.sno === sno);
+                reviewsData[index].given = review;
+                populateTable(); // Refresh the table
+            }
+        }
+
+        // Populate the table on page load
+        window.onload = populateTable;
+    </script>
+</body>
+</html>
